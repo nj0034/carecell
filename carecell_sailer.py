@@ -20,8 +20,8 @@ class CarecellSailer(Sailer):
     def start(self):
         self.go(START_URL)
 
-        # 서울(13) / 경기도(21) 부터 시작
-        for city_num in range(13, 30):
+        # 서울(13) / 제주도(29)
+        for city_num in range(20, 25):
             self.xpath(r'//*[@id="si_do_cd-button"]/span[1]').click()
 
             city_element = self.xpath(r'//*[@id="ui-id-{city_num}"]'.format(city_num=city_num))
@@ -142,7 +142,7 @@ class CarecellSailer(Sailer):
             "service": self.service,
             "grade": self.grade,
             "name": self.name,
-            "address": re.search(r'주소.*\s*<.*?>(.*)\(?.*\)?<\/td>', html).group(1).strip(),
+            "address": re.search(r'주소.*\s*<.*?>(.*)<\/td>', html).group(1).split('(')[0].strip(),
             "number": re.search(r'전화번호.*\s*<.*?>(.*)<\/td>', html).group(1).strip(),
             "founded_date": re.search(r'지정일자.*\s*<.*?>(.*)<\/td>', html).group(1).strip(),
             "max_people": re.search(r'정원\(A\).*\s*<.*?>(\s?)*(.*)(\s?)*<\/td>', html).group(2).strip(),
